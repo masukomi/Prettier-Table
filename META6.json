@@ -10,7 +10,7 @@
   "depends": [
     "Text::Wrap"
   ],
-  "description": "A simple Raku module to make it quick and easy to represent tabular data in visually appealing tables.",
+  "description": "A simple Raku module to generate smooth looking ASCII tables",
   "license": "MIT",
   "name": "Prettier::Table",
   "perl": "6.c",
@@ -20,9 +20,9 @@
   },
   "resources": [
   ],
-  "source-url": "git://gitlab.com/uzluisf/raku-pretty-table.git",
+  "source-url": "git://github.com/masukomi/Prettier-Table.git",
   "support": {
-    "bugtracker": "https://gitlab.com/uzluisf/raku-pretty-table/issues"
+    "bugtracker": "https://github.com/masukomi/Prettier-Table/issues"
   },
   "tags": [
     "table",
