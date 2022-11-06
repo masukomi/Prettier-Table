@@ -2,6 +2,11 @@ Revision history for Pretty-Table
 
 {{$NEXT}}
 
+1.0.0 2022-11-06T00:00:00-05:00
+    - Reworked to use ASCII Box Drawing Characters for smooth lines
+	- Remove slice support
+	  - commented out pending a fix to a rakudo bug
+
 0.0.2  2020-02-07T20:50:33-05:00
     - Add missing tests
     - Make it possible to slice a table
