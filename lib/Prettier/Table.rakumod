@@ -1482,7 +1482,11 @@ method !format-rows( @rows --> List ) {
 C<Prettier::Table>, a simple Raku module to make it quick and easy to represent
 tabular data in visually appealing ASCII tables.
 
-C<Prettier::Table> is a port of the Python library L<PTable|https://github.com/kxxoling/PTable>.
+
+This is a fork of L<Luis F Uceta's Prettier::Table|https://gitlab.com/uzluisf/raku-pretty-table> which is itself a port of
+the L<Kane Blueriver's PTable library for Python|https://github.com/kxxoling/PTable>.
+I (L<masukomi|https://masukomi.org>) have modifed it to use ASCII Box drawing characters
+so as to make it "prettier".
 
 =head1 Synopsis
 
@@ -1512,6 +1516,12 @@ say $table;
 =end code
 
 Output:
+
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/australian_cities.png?raw=true" />
+
+(GitHub displays the raw text incorrectly)
+
+
 =begin code
 
     ┌─────────────────────────────────────────────────┐
@@ -1529,7 +1539,6 @@ Output:
     └───────────┴──────┴────────────┴─────────────────┘
 =end code
 
-<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blog/main/images/australian_cities.png" />
 
 B<Example 2>:
 
@@ -1550,12 +1559,18 @@ $table.title('Planets in the Solar System');
 $table.align(%(:Planet<l>));
 $table.float-format(%('Orbital period (days)' => '-10.3f', 'Surface gravity (m/s)' => '-5.3f'));
 $table.sort-by('Position');
-$table.junction-char('*');
+# If you wish to change any of the characters used in the border
+# you could do something like this.
+# $table.junction-char('*');
 
 put $table;
 =end code
 
 Output:
+
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/planets_of_the_solar_system.png?raw=true" />
+
+(GitHub displays the raw text incorrectly)
 =begin code
 
     ┌────────────────────────────────────────────────────────────────────┐
@@ -1574,7 +1589,6 @@ Output:
     └─────────┴──────────┴───────────────────────┴───────────────────────┘
 =end code
 
-<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blog/main/images/planets_of_the_solar_system.png" />
 =head1 Installation
 
 Using zef:
@@ -1600,26 +1614,14 @@ use Prettier::Table;
 my $x = Prettier::Table.new;
 =end code
 
-Read the section B«Getter and Setter Methods» to find about the public
-attributes and their respective methods. For the
-L«tutorial|https://gitlab.com/uzluisf/raku-pretty-table/tree/master/doc/Prettier/Table/Tutorial.rakumod»,
-run C«p6doc Prettier::Table::Tutorial».
-
-=head2 As a command-line tool
-
-=begin code
-pt --csv somefile.csv
-=end code
-
-Run C<pt> to get the full usage message.
-
+Check out the attributes in C<Prettier::Table> to see the full list of things that can be set / configured. Most notably the
+C<*-char> attributes, used to control the look of the border.
+Additionally, the named parameters in the C<get-string> method.
 
 =head2 AUTHORS
-=para
-This is a fork of L<Luis F Uceta's Prettier::Table|https://gitlab.com/uzluisf/raku-pretty-table> which is itself a port of
-the L<Kane Blueriver's PTable library for Python|https://github.com/kxxoling/PTable>.
-I (L<masukomi|https://masukomi.org>) have modifed it to use ASCII Box drawing characters
-so as to make it "prettier".
+
+=item L<Luis F Uceta's Prettier::Table|https://gitlab.com/uzluisf/raku-pretty-table>
+=item L<masukomi|https://masukomi.org>
 
 =head2 LICENSE
 =para

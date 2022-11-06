@@ -1,20 +1,18 @@
 Name
 ====
 
-`Pretty::Table`, a simple Raku module to make it quick and easy to represent tabular data in visually appealing ASCII tables.
+`Prettier::Table`, a simple Raku module to make it quick and easy to represent tabular data in visually appealing ASCII tables.
 
-`Pretty::Table` is a port of the Python library [PTable](https://github.com/kxxoling/PTable).
-
-**Disclaimer:** This module is still a work in progress. Although some basic features are implemented, they still require further testing.
+This is a fork of [Luis F Uceta's Prettier::Table](https://gitlab.com/uzluisf/raku-pretty-table) which is itself a port of the [Kane Blueriver's PTable library for Python](https://github.com/kxxoling/PTable). I ([masukomi](https://masukomi.org)) have modifed it to use ASCII Box drawing characters so as to make it "prettier".
 
 Synopsis
 ========
 
 **Example 1**:
 
-    use Pretty::Table;
+    use Prettier::Table;
 
-    my $table = Pretty::Table.new:
+    my $table = Prettier::Table.new:
         title => "Australian Cities",
         field-names => ["City name", "Area", "Population", "Annual Rainfall"],
         sort-by => 'Area',
@@ -34,26 +32,30 @@ Synopsis
     say $table;
 
 Output:
-```
-    ┌─────────────────────────────────────────────────┐
-    │                Australian Cities                │
-    ├───────────┬──────┬────────────┬─────────────────┤
-    │ City name │ Area │ Population │ Annual Rainfall │
-    ├───────────┼──────┼────────────┼─────────────────┤
-    │ Darwin    │ 112  │   120900   │      1714.7     │
-    │ Adelaide  │ 1295 │  1158259   │      600.5      │
-    │ Hobart    │ 1357 │   205556   │      619.5      │
-    │ Melbourne │ 1566 │  3806092   │      646.9      │
-    │ Sydney    │ 2058 │  4336374   │      1214.8     │
-    │ Perth     │ 5386 │  1554769   │      869.4      │
-    │ Brisbane  │ 5905 │  1857594   │      1146.4     │
-    └───────────┴──────┴────────────┴─────────────────┘
-```
+
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/australian_cities.png?raw=true" />
+
+(GitHub displays the raw text incorrectly)
+
+        ┌─────────────────────────────────────────────────┐
+        │                Australian Cities                │
+        ├───────────┬──────┬────────────┬─────────────────┤
+        │ City name │ Area │ Population │ Annual Rainfall │
+        ├───────────┼──────┼────────────┼─────────────────┤
+        │ Darwin    │ 112  │   120900   │      1714.7     │
+        │ Adelaide  │ 1295 │  1158259   │      600.5      │
+        │ Hobart    │ 1357 │   205556   │      619.5      │
+        │ Melbourne │ 1566 │  3806092   │      646.9      │
+        │ Sydney    │ 2058 │  4336374   │      1214.8     │
+        │ Perth     │ 5386 │  1554769   │      869.4      │
+        │ Brisbane  │ 5905 │  1857594   │      1146.4     │
+        └───────────┴──────┴────────────┴─────────────────┘
+
 **Example 2**:
 
-    use Pretty::Table;
+    use Prettier::Table;
 
-    my $table = Pretty::Table.new;
+    my $table = Prettier::Table.new;
 
     given $table {
         .add-column('Planet', ['Earth', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']);
@@ -67,60 +69,70 @@ Output:
     $table.align(%(:Planet<l>));
     $table.float-format(%('Orbital period (days)' => '-10.3f', 'Surface gravity (m/s)' => '-5.3f'));
     $table.sort-by('Position');
-    $table.junction-char('*');
+    # If you wish to change any of the characters used in the border
+    # you could do something like this.
+    # $table.junction-char('*');
 
     put $table;
 
 Output:
-```
-    ┌────────────────────────────────────────────────────────────────────┐
-    │                    Planets in the Solar System                     │
-    ├─────────┬──────────┬───────────────────────┬───────────────────────┤
-    │  Planet │ Position │ Orbital period (days) │ Surface gravity (m/s) │
-    ├─────────┼──────────┼───────────────────────┼───────────────────────┤
-    │  Earth  │    3     │        365.256        │         9.806         │
-    │ Mercury │    1     │         87.969        │          3.7          │
-    │  Venus  │    2     │        224.701        │          8.87         │
-    │   Mars  │    4     │        686.971        │         3.721         │
-    │ Jupiter │    5     │        4332.59        │         24.79         │
-    │  Saturn │    6     │        10759.22       │         10.44         │
-    │  Uranus │    7     │        30688.5        │          8.69         │
-    │ Neptune │    8     │         60182         │         11.15         │
-    └─────────┴──────────┴───────────────────────┴───────────────────────┘
-```
+
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/planets_of_the_solar_system.png?raw=true" />
+
+(GitHub displays the raw text incorrectly)
+
+        ┌────────────────────────────────────────────────────────────────────┐
+        │                    Planets in the Solar System                     │
+        ├─────────┬──────────┬───────────────────────┬───────────────────────┤
+        │  Planet │ Position │ Orbital period (days) │ Surface gravity (m/s) │
+        ├─────────┼──────────┼───────────────────────┼───────────────────────┤
+        │  Earth  │    3     │        365.256        │         9.806         │
+        │ Mercury │    1     │         87.969        │          3.7          │
+        │  Venus  │    2     │        224.701        │          8.87         │
+        │   Mars  │    4     │        686.971        │         3.721         │
+        │ Jupiter │    5     │        4332.59        │         24.79         │
+        │  Saturn │    6     │        10759.22       │         10.44         │
+        │  Uranus │    7     │        30688.5        │          8.69         │
+        │ Neptune │    8     │         60182         │         11.15         │
+        └─────────┴──────────┴───────────────────────┴───────────────────────┘
 
 Installation
 ============
 
 Using zef:
 
-    zef install Pretty::Table
+    zef install Prettier::Table
 
 From source:
 
-    $ git clone 
+    $ git clone
     $ cd raku-pretty-table
     $ zef install .
 
 Quickstart
 ==========
 
-`Pretty::Table` supports two kinds of usage:
+`Prettier::Table` supports two kinds of usage:
 
 As a module
 -----------
 
-    use Pretty::Table;
-    my $x = Pretty::Table.new;
+    use Prettier::Table;
+    my $x = Prettier::Table.new;
 
-Read the section **Getter and Setter Methods** to find about the public attributes and their respective methods. For the [tutorial](https://gitlab.com/uzluisf/raku-pretty-table/tree/master/doc/Pretty/Table/Tutorial.rakumod), run `p6doc Pretty::Table::Tutorial`.
+Check out the attributes in `Prettier::Table` to see the full list of things that can be set / configured. Most notably the `*-char` attributes, used to control the look of the border. Additionally, the named parameters in the `get-string` method.
 
-As a command-line tool
-----------------------
+AUTHORS
+-------
 
-    pt --csv somefile.csv
+  * [Luis F Uceta's Prettier::Table](https://gitlab.com/uzluisf/raku-pretty-table)
 
-Run `pt` to get the full usage message.
+  * [masukomi](https://masukomi.org)
+
+LICENSE
+-------
+
+MIT. See LICENSE file.
 
 Methods
 =======
@@ -128,11 +140,11 @@ Methods
 Getter and Setter Methods
 -------------------------
 
-**NOTE**: These methods's names are the same as their respective attributes. To set a specific attribute during the instantiation of a `Pretty::Table` object, use its method's name. For instance, to set `title`, `Pretty::Table.new(title => "Table's title")`. Thus, all methods listed here have an associated attribute that can be set during object construction.
+**NOTE**: These methods's names are the same as their respective attributes. To set a specific attribute during the instantiation of a `Prettier::Table` object, use its method's name. For instance, to set `title`, `Prettier::Table.new(title => "Table's title")`. Thus, all methods listed here have an associated attribute that can be set during object construction.
 
 ### multi method field-names
 
-```perl6
+```raku
 multi method field-names() returns Array
 ```
 
@@ -140,7 +152,7 @@ Return a list of field names.
 
 ### multi method field-names
 
-```perl6
+```raku
 multi method field-names(
     @values
 ) returns Nil
@@ -150,7 +162,7 @@ Set a list of field names.
 
 ### multi method align
 
-```perl6
+```raku
 multi method align() returns Hash
 ```
 
@@ -158,7 +170,7 @@ Return how the alignment of fields is controlled.
 
 ### multi method align
 
-```perl6
+```raku
 multi method align(
     $val
 ) returns Nil
@@ -168,7 +180,7 @@ Set how the alignment of fields is controlled. Either an alignment string (l, c,
 
 ### multi method valign
 
-```perl6
+```raku
 multi method valign() returns Hash
 ```
 
@@ -176,7 +188,7 @@ Return how the vertical alignment of fields is controlled.
 
 ### multi method valign
 
-```perl6
+```raku
 multi method valign(
     $val
 ) returns Nil
@@ -186,15 +198,15 @@ Set how the vertical alignment of fields is controlled. Either an alignment stri
 
 ### multi method max-width
 
-```perl6
-multi method max-width() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method max-width() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the maximum width of fields.
 
 ### multi method max-width
 
-```perl6
+```raku
 multi method max-width(
     $val where { ... }
 ) returns Nil
@@ -204,7 +216,7 @@ Set the maximum width of fields.
 
 ### multi method min-width
 
-```perl6
+```raku
 multi method min-width() returns Hash
 ```
 
@@ -212,9 +224,9 @@ Return the minimum width of fields.
 
 ### multi method min-width
 
-```perl6
+```raku
 multi method min-width(
-    $val where { ... }
+    $val
 ) returns Nil
 ```
 
@@ -222,15 +234,15 @@ Set the minimum width of fields.
 
 ### multi method min-table-width
 
-```perl6
-multi method min-table-width() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method min-table-width() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the minimum desired table width, in characters.
 
 ### multi method min-table-width
 
-```perl6
+```raku
 multi method min-table-width(
     $val where { ... }
 ) returns Mu
@@ -240,7 +252,7 @@ Set the minimum desired table width, in characters.
 
 ### multi method max-table-width
 
-```perl6
+```raku
 multi method max-table-width() returns Mu
 ```
 
@@ -248,7 +260,7 @@ Return the maximum desired table width, in characters.
 
 ### multi method max-table-width
 
-```perl6
+```raku
 multi method max-table-width(
     $val where { ... }
 ) returns Mu
@@ -258,7 +270,7 @@ Set the minimum desired table width, in characters.
 
 ### multi method fields
 
-```perl6
+```raku
 multi method fields() returns Array
 ```
 
@@ -266,7 +278,7 @@ Return the list of field names to include in displays.
 
 ### multi method fields
 
-```perl6
+```raku
 multi method fields(
     @values
 ) returns Mu
@@ -276,7 +288,7 @@ Return the list of field names to include in displays.
 
 ### multi method title
 
-```perl6
+```raku
 multi method title() returns Str
 ```
 
@@ -284,7 +296,7 @@ Return the table title (if existent).
 
 ### multi method title
 
-```perl6
+```raku
 multi method title(
     Str $val
 ) returns Mu
@@ -294,15 +306,15 @@ Set the table title.
 
 ### multi method start
 
-```perl6
-multi method start() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method start() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the start index of the range of rows to print.
 
 ### multi method start
 
-```perl6
+```raku
 multi method start(
     $val where { ... }
 ) returns Mu
@@ -312,7 +324,7 @@ Set the start index of the range of rows to print.
 
 ### multi method end
 
-```perl6
+```raku
 multi method end() returns Mu
 ```
 
@@ -320,7 +332,7 @@ Return the end index of the range of rows to print.
 
 ### multi method end
 
-```perl6
+```raku
 multi method end(
     $val
 ) returns Mu
@@ -330,7 +342,7 @@ Set the end index of the range of rows to print.
 
 ### multi method sort-by
 
-```perl6
+```raku
 multi method sort-by() returns Mu
 ```
 
@@ -338,7 +350,7 @@ Return the name of field by which to sort rows.
 
 ### multi method sort-by
 
-```perl6
+```raku
 multi method sort-by(
     Str $val where { ... }
 ) returns Mu
@@ -348,7 +360,7 @@ Set the name of field by which to sort rows.
 
 ### multi method reverse-sort
 
-```perl6
+```raku
 multi method reverse-sort() returns Bool
 ```
 
@@ -356,7 +368,7 @@ Return the direction of sorting, ascending (False) vs descending (True).
 
 ### multi method reverse-sort
 
-```perl6
+```raku
 multi method reverse-sort(
     Bool $val
 ) returns Nil
@@ -366,7 +378,7 @@ Set the direction of sorting (ascending (False) vs descending (True).
 
 ### multi method sort-key
 
-```perl6
+```raku
 multi method sort-key() returns Callable
 ```
 
@@ -374,7 +386,7 @@ Return the sorting key function, applied to data points before sorting.
 
 ### multi method sort-key
 
-```perl6
+```raku
 multi method sort-key(
     &val
 ) returns Nil
@@ -384,7 +396,7 @@ Set the sorting key function, applied to data points before sorting.
 
 ### multi method header
 
-```perl6
+```raku
 multi method header() returns Bool
 ```
 
@@ -392,7 +404,7 @@ Return whether the table has a heading showing the field names.
 
 ### multi method header
 
-```perl6
+```raku
 multi method header(
     Bool $val
 ) returns Nil
@@ -402,15 +414,15 @@ Set whether the table has a heading showing the field names.
 
 ### multi method header-style
 
-```perl6
-multi method header-style() returns Pretty::Table::Constrains::HeaderStyle
+```raku
+multi method header-style() returns Prettier::Table::Constrains::HeaderStyle
 ```
 
 Return style to apply to field names in header ("cap", "title", "upper", or "lower").
 
 ### multi method header-style
 
-```perl6
+```raku
 multi method header-style(
     $val where { ... }
 ) returns Mu
@@ -420,7 +432,7 @@ Set style to apply to field names in header ("cap", "title", "upper", or "lower"
 
 ### multi method border
 
-```perl6
+```raku
 multi method border() returns Bool
 ```
 
@@ -428,7 +440,7 @@ Return whether a border is printed around table.
 
 ### multi method border
 
-```perl6
+```raku
 multi method border(
     Bool $val
 ) returns Mu
@@ -438,15 +450,15 @@ Set whether a border is printed around table.
 
 ### multi method hrules
 
-```perl6
-multi method hrules() returns Pretty::Table::Constrains::HorizontalRule
+```raku
+multi method hrules() returns Prettier::Table::Constrains::HorizontalRule
 ```
 
 Return how horizontal rules are printed after rows.
 
 ### multi method hrules
 
-```perl6
+```raku
 multi method hrules(
     $val where { ... }
 ) returns Mu
@@ -456,15 +468,15 @@ Set how horizontal rules are printed after rows. Allowed values: FRAME, ALL, HEA
 
 ### multi method vrules
 
-```perl6
-multi method vrules() returns Pretty::Table::Constrains::VerticalRule
+```raku
+multi method vrules() returns Prettier::Table::Constrains::VerticalRule
 ```
 
 Return how vertical rules are printed between columns.
 
 ### multi method vrules
 
-```perl6
+```raku
 multi method vrules(
     $val where { ... }
 ) returns Mu
@@ -474,7 +486,7 @@ Set how vertical rules are printed between columns. Allowed values: FRAME, ALL, 
 
 ### multi method int-format
 
-```perl6
+```raku
 multi method int-format() returns Mu
 ```
 
@@ -482,7 +494,7 @@ Return how the integer data is formatted.
 
 ### multi method int-format
 
-```perl6
+```raku
 multi method int-format(
     $val
 ) returns Nil
@@ -492,7 +504,7 @@ Set how the integer data is formatted. The value can either be a string or a has
 
 ### multi method float-format
 
-```perl6
+```raku
 multi method float-format() returns Mu
 ```
 
@@ -500,7 +512,7 @@ Return how the integer data is formatted.
 
 ### multi method float-format
 
-```perl6
+```raku
 multi method float-format(
     $val
 ) returns Nil
@@ -510,15 +522,15 @@ Set how the integer data is formatted. The value can either be a string or a has
 
 ### multi method padding-width
 
-```perl6
-multi method padding-width() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method padding-width() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the number of empty spaces between a column's edge and its content.
 
 ### multi method padding-width
 
-```perl6
+```raku
 multi method padding-width(
     $val where { ... }
 ) returns Nil
@@ -528,15 +540,15 @@ Set the number of empty spaces between a column's edge and its content.
 
 ### multi method left-padding-width
 
-```perl6
-multi method left-padding-width() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method left-padding-width() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the number of empty spaces between a column's left edge and its content.
 
 ### multi method left-padding-width
 
-```perl6
+```raku
 multi method left-padding-width(
     $val where { ... }
 ) returns Nil
@@ -546,15 +558,15 @@ Set the number of empty spaces between a column's left edge and its content.
 
 ### multi method right-padding-width
 
-```perl6
-multi method right-padding-width() returns Pretty::Table::Constrains::NonNeg
+```raku
+multi method right-padding-width() returns Prettier::Table::Constrains::NonNeg
 ```
 
 Return the number of empty spaces between a column's right edge and its content.
 
 ### multi method right-padding-width
 
-```perl6
+```raku
 multi method right-padding-width(
     $val where { ... }
 ) returns Nil
@@ -564,61 +576,205 @@ Set the number of empty spaces between a column's right edge and its content.
 
 ### multi method vertical-char
 
-```perl6
-multi method vertical-char() returns Pretty::Table::Constrains::Char
+```raku
+multi method vertical-char() returns Prettier::Table::Constrains::Char
 ```
 
 Return character used when printing table borders to draw vertical lines.
 
 ### multi method vertical-char
 
-```perl6
+```raku
 multi method vertical-char(
     $val where { ... }
 ) returns Nil
 ```
 
-Return character used when printing table borders to draw vertical lines.
+Set character used when printing table borders to draw vertical lines.
 
 ### multi method horizontal-char
 
-```perl6
-multi method horizontal-char() returns Pretty::Table::Constrains::Char
+```raku
+multi method horizontal-char() returns Prettier::Table::Constrains::Char
 ```
 
 Return character used when printing table borders to draw horizontal lines.
 
 ### multi method horizontal-char
 
-```perl6
+```raku
 multi method horizontal-char(
     $val where { ... }
 ) returns Nil
 ```
 
-Return character used when printing table borders to draw horizontal lines.
+Set character used when printing table borders to draw horizontal lines.
 
 ### multi method junction-char
 
-```perl6
-multi method junction-char() returns Pretty::Table::Constrains::Char
+```raku
+multi method junction-char() returns Prettier::Table::Constrains::Char
 ```
 
-Return character used when printing table borders to draw line junctions.
+Return character used when printing table borders to draw mid-line junctions.
 
 ### multi method junction-char
 
-```perl6
+```raku
 multi method junction-char(
     $val where { ... }
 ) returns Nil
 ```
 
-Return character used when printing table borders to draw line junctions.
+Set character used when printing table borders to draw mid-line junctions.
+
+### multi method left-junction-char
+
+```raku
+multi method left-junction-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw left-edge line junctions.
+
+### multi method left-junction-char
+
+```raku
+multi method left-junction-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw left-edge line junctions.
+
+### multi method right-junction-char
+
+```raku
+multi method right-junction-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw right-edge line junctions.
+
+### multi method right-junction-char
+
+```raku
+multi method right-junction-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw right-edge line junctions.
+
+### multi method top-junction-char
+
+```raku
+multi method top-junction-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw top edge mid-line junctions.
+
+### multi method top-junction-char
+
+```raku
+multi method top-junction-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw top edge mid-line junctions.
+
+### multi method bottom-junction-char
+
+```raku
+multi method bottom-junction-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw bottom edge mid-line junctions.
+
+### multi method bottom-junction-char
+
+```raku
+multi method bottom-junction-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw bottom edge mid-line junctions.
+
+### multi method bottom-left-corner-char
+
+```raku
+multi method bottom-left-corner-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw bottem edge left corners.
+
+### multi method bottom-left-corner-char
+
+```raku
+multi method bottom-left-corner-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw bottom edge left corners.
+
+### multi method bottom-right-corner-char
+
+```raku
+multi method bottom-right-corner-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw bottom right corners.
+
+### multi method bottom-right-corner-char
+
+```raku
+multi method bottom-right-corner-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw bottom right corners.
+
+### multi method top-left-corner-char
+
+```raku
+multi method top-left-corner-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to draw top left corners.
+
+### multi method top-left-corner-char
+
+```raku
+multi method top-left-corner-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to top left corners.
+
+### multi method top-right-corner-char
+
+```raku
+multi method top-right-corner-char() returns Prettier::Table::Constrains::Char
+```
+
+Return character used when printing table borders to top right corners.
+
+### multi method top-right-corner-char
+
+```raku
+multi method top-right-corner-char(
+    $val where { ... }
+) returns Nil
+```
+
+Set character used when printing table borders to draw top right corners.
 
 ### multi method format
 
-```perl6
+```raku
 multi method format() returns Bool
 ```
 
@@ -626,7 +782,7 @@ Return whether or not HTML tables are formatted to match styling options.
 
 ### multi method format
 
-```perl6
+```raku
 multi method format(
     Bool $val
 ) returns Nil
@@ -636,7 +792,7 @@ Set whether or not HTML tables are formatted to match styling options.
 
 ### multi method print-empty
 
-```perl6
+```raku
 multi method print-empty() returns Bool
 ```
 
@@ -644,7 +800,7 @@ Return whether or not empty tables produce a header and frame or just an empty s
 
 ### multi method print-empty
 
-```perl6
+```raku
 multi method print-empty(
     Bool $val
 ) returns Nil
@@ -654,7 +810,7 @@ Set whether or not empty tables produce a header and frame or just an empty stri
 
 ### multi method old-sort-slice
 
-```perl6
+```raku
 multi method old-sort-slice() returns Bool
 ```
 
@@ -662,7 +818,7 @@ Return whether to slice rows before sorting in the "old style".
 
 ### multi method old-sort-slice
 
-```perl6
+```raku
 multi method old-sort-slice(
     Bool $val
 ) returns Nil
@@ -675,7 +831,7 @@ Style of Table
 
 ### method set-style
 
-```perl6
+```raku
 method set-style(
     TableStyle $style
 ) returns Nil
@@ -683,12 +839,20 @@ method set-style(
 
 Set the style to be used for the table. Allowed values: DEFAULT: Show header and border, hrules and vrules are FRAME and ALL respectively, paddings are 1, vert. char is |, hor. char is -, and junction char is +. MSWORD-FRIENDLY: Show header and border, hrules is NONE, paddings are 1, and vert. char is | PLAIN-COLUMNS: Show header and hide border, hrules is NONE, padding is 1, left padding is 0, and right padding is 8 RANDOM: random style
 
+### method set-default-style
+
+```raku
+method set-default-style() returns Nil
+```
+
+Single character string used to draw vertical lines. Single character string used to draw horizontal lines. Single character string used to draw line junctions.
+
 Data Input Methods
 ------------------
 
 ### method add-row
 
-```perl6
+```raku
 method add-row(
     @row
 ) returns Nil
@@ -703,7 +867,7 @@ Row of data, should be a list with as many elements as the table has fields.
 
 ### method del-row
 
-```perl6
+```raku
 method del-row(
     Int $row-index
 ) returns Nil
@@ -718,7 +882,7 @@ Index of the row to delete (0-based index).
 
 ### method add-column
 
-```perl6
+```raku
 method add-column(
     Str $fieldname,
     @column,
@@ -751,7 +915,7 @@ Desired vertical alignment for new columns - "t" (top), "m" (middle), and "b" (b
 
 ### method clear-rows
 
-```perl6
+```raku
 method clear-rows() returns Nil
 ```
 
@@ -759,7 +923,7 @@ Delete all rows from the table but keep the current field names.
 
 ### method clear
 
-```perl6
+```raku
 method clear() returns Nil
 ```
 
@@ -770,24 +934,32 @@ Plain Text String methods
 
 ### method get-string
 
-```perl6
+```raku
 method get-string(
     Str :$title = Str,
-    :$start where { ... } = Pretty::Table::Constrains::NonNeg,
-    :$end where { ... } = Pretty::Table::Constrains::NonNeg,
+    :$start where { ... } = Prettier::Table::Constrains::NonNeg,
+    :$end where { ... } = Prettier::Table::Constrains::NonNeg,
     :@fields,
     Bool :$header = Bool,
     Bool :$border = Bool,
-    :$hrules where { ... } = Pretty::Table::Constrains::HorizontalRule,
-    :$vrules where { ... } = Pretty::Table::Constrains::VerticalRule,
+    :$hrules where { ... } = Prettier::Table::Constrains::HorizontalRule,
+    :$vrules where { ... } = Prettier::Table::Constrains::VerticalRule,
     Str :$int-format = Str,
     Str :$float-format = Str,
-    :$padding-width where { ... } = Pretty::Table::Constrains::NonNeg,
-    :$left-padding-width where { ... } = Pretty::Table::Constrains::NonNeg,
-    :$right-padding-width where { ... } = Pretty::Table::Constrains::NonNeg,
-    :$vertical-char where { ... } = Pretty::Table::Constrains::Char,
-    :$horizontal-char where { ... } = Pretty::Table::Constrains::Char,
-    :$junction-char where { ... } = Pretty::Table::Constrains::Char,
+    :$padding-width where { ... } = Prettier::Table::Constrains::NonNeg,
+    :$left-padding-width where { ... } = Prettier::Table::Constrains::NonNeg,
+    :$right-padding-width where { ... } = Prettier::Table::Constrains::NonNeg,
+    :$vertical-char where { ... } = Prettier::Table::Constrains::Char,
+    :$horizontal-char where { ... } = Prettier::Table::Constrains::Char,
+    :$junction-char where { ... } = Prettier::Table::Constrains::Char,
+    :$left-junction-char where { ... } = Prettier::Table::Constrains::Char,
+    :$right-junction-char where { ... } = Prettier::Table::Constrains::Char,
+    :$top-junction-char where { ... } = Prettier::Table::Constrains::Char,
+    :$bottom-junction-char where { ... } = Prettier::Table::Constrains::Char,
+    :$bottom-left-corner-char where { ... } = Prettier::Table::Constrains::Char,
+    :$bottom-right-corner-char where { ... } = Prettier::Table::Constrains::Char,
+    :$top-left-corner-char where { ... } = Prettier::Table::Constrains::Char,
+    :$top-right-corner-char where { ... } = Prettier::Table::Constrains::Char,
     Str :$sort-by = Str,
     :&sort-key,
     Bool :$reverse-sort = Bool,
@@ -881,6 +1053,46 @@ See method junction-char
 class Mu $
 ----------
 
+See method junction-char
+
+class Mu $
+----------
+
+See method right-junction-char
+
+class Mu $
+----------
+
+See method top-junction-char
+
+class Mu $
+----------
+
+See method bottom-junction-char
+
+class Mu $
+----------
+
+See method bottom-left-corner-char
+
+class Mu $
+----------
+
+See method bottom-right-corner-char
+
+class Mu $
+----------
+
+See method top-left-corner-char
+
+class Mu $
+----------
+
+See method top-right-corner-char
+
+class Mu $
+----------
+
 See method sort-by
 
 class Mu $
@@ -908,7 +1120,7 @@ Miscellaneous Methods
 
 ### method row-count
 
-```perl6
+```raku
 method row-count() returns Int
 ```
 
@@ -916,9 +1128,19 @@ Return the number of rows.
 
 ### method col-count
 
-```perl6
+```raku
 method col-count() returns Int
 ```
 
 Return the number of columns.
+
+### method slice
+
+```raku
+method slice(
+    *@indices
+) returns Prettier::Table
+```
+
+Return a sliced-off new Prettier::Table. The indices must between 0 and the table's number of rows (exclusive). Alternatively, the postcircumfix operator [] can be used.
 
