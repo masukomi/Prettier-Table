@@ -1,0 +1,11 @@
+Revision history for Pretty-Table
+
+{{$NEXT}}
+
+0.0.2  2020-02-07T20:50:33-05:00
+    - Add missing tests
+    - Make it possible to slice a table
+    - Fix minor issue caused by skipping spaces when splitting newlines
+
+0.0.1  2020-01-30T00:12:09.489133-05:00
+    - Initial version

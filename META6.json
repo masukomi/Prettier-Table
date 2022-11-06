@@ -1,0 +1,34 @@
+{
+  "api": 1,
+  "auth": "zef:masukomi",
+  "authors": [
+    "Luis F. Uceta",
+    "masukomi <masukomi@masukomi.org>"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+    "Text::Wrap"
+  ],
+  "description": "A simple Raku module to make it quick and easy to represent tabular data in visually appealing tables.",
+  "license": "MIT",
+  "name": "Prettier::Table",
+  "perl": "6.c",
+  "provides": {
+    "Prettier::Table": "lib/Prettier/Table.rakumod",
+    "Prettier::Table::Constrains": "lib/Prettier/Table/Constrains.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "git://gitlab.com/uzluisf/raku-pretty-table.git",
+  "support": {
+    "bugtracker": "https://gitlab.com/uzluisf/raku-pretty-table/issues"
+  },
+  "tags": [
+    "table",
+    "data"
+  ],
+  "test-depends": [
+  ],
+  "version": "1.0.0"
+}
