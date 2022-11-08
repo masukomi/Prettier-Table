@@ -3,7 +3,9 @@ Name
 
 `Prettier::Table`, a simple Raku module to make it quick and easy to represent tabular data in visually appealing ASCII tables.
 
-This is a fork of [Luis F Uceta's Prettier::Table](https://gitlab.com/uzluisf/raku-pretty-table) which is itself a port of the [Kane Blueriver's PTable library for Python](https://github.com/kxxoling/PTable). I ([masukomi](https://masukomi.org)) have modifed it to use ASCII Box drawing characters so as to make it "prettier".
+By default it will generate tables using ASCII Box Drawing characters as show in the examples below. But you can also generate [GFM Markdown tables](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables), and MS Word Friendly tables by calling `$my_table.set-style('MARKDOWN')` or `$my_table.set-style('MSWORD-FRIENDLY')` Check out `demo.raku` to see this in action.
+
+This is a fork of [Luis F Uceta's Prettier::Table](https://gitlab.com/uzluisf/raku-pretty-table) which is itself a port of the [Kane Blueriver's PTable library for Python](https://github.com/kxxoling/PTable).
 
 Synopsis
 ========
@@ -829,15 +831,15 @@ Return whether to slice rows before sorting in the "old style".
 Style of Table
 --------------
 
-### method set-style
+### multi method set-style
 
 ```raku
-method set-style(
+multi method set-style(
     TableStyle $style
 ) returns Nil
 ```
 
-Set the style to be used for the table. Allowed values: DEFAULT: Show header and border, hrules and vrules are FRAME and ALL respectively, paddings are 1, vert. char is |, hor. char is -, and junction char is +. MSWORD-FRIENDLY: Show header and border, hrules is NONE, paddings are 1, and vert. char is | PLAIN-COLUMNS: Show header and hide border, hrules is NONE, padding is 1, left padding is 0, and right padding is 8 RANDOM: random style
+Set the style to be used for the table. Allowed values: DEFAULT: Show header and border, hrules and vrules are FRAME and ALL respectively, paddings are 1, ASCII Box Drawing characters used for borders. MSWORD-FRIENDLY: Show header and border, hrules is NONE, paddings are 1, and vert. char is | MARKDOWN: GitHub Flavored Markdown table. - Removes title, only hrule below column headers, paddings are 1, and vert. char is | PLAIN-COLUMNS: Show header and hide border, hrules is NONE, padding is 1, left padding is 0, and right padding is 8 RANDOM: random style
 
 ### method set-default-style
 
@@ -846,6 +848,14 @@ method set-default-style() returns Nil
 ```
 
 Single character string used to draw vertical lines. Single character string used to draw horizontal lines. Single character string used to draw line junctions.
+
+### method set-markdown-style
+
+```raku
+method set-markdown-style() returns Nil
+```
+
+modifies border characters to produce markdown output
 
 Data Input Methods
 ------------------

@@ -1542,14 +1542,12 @@ method !format-rows( @rows --> List ) {
 C<Prettier::Table>, a simple Raku module to make it quick and easy to represent
 tabular data in visually appealing ASCII tables.
 
-By default it will generate tables using ASCII Box Drawing characters, but
-you can also generate GFM Markdown tables, and
+By default it will generate tables using ASCII Box Drawing characters as show in
+the examples below. But you can also generate L<GFM Markdown tables|https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables>, and MS Word Friendly tables by calling C<$my_table.set-style('MARKDOWN')> or C<$my_table.set-style('MSWORD-FRIENDLY')> Check out C<demo.raku> to see this in action.
 
 
 This is a fork of L<Luis F Uceta's Prettier::Table|https://gitlab.com/uzluisf/raku-pretty-table> which is itself a port of
 the L<Kane Blueriver's PTable library for Python|https://github.com/kxxoling/PTable>.
-I (L<masukomi|https://masukomi.org>) have modifed it to use ASCII Box drawing characters
-so as to make it "prettier".
 
 =head1 Synopsis
 
