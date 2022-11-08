@@ -3,13 +3,14 @@ Revision history for Prettier::Table
 1.1.0 2022-11-08T00:00:00-05:00
     - Added markdown support
       .set-style(MARKDOWN)
-    - Added ability specify styles with strings
+    - Added ability specify styles with strings instead of constants
       .set-style('MSWORDF-FRIENDLY')
     - Added helpful messages when you attempt to set alignment
       (horizontal and vertical) on column names that don't match anything.
     - Fixed vertical alignment bug
       vertical alignment settings were assigned to horizontal
       alignment hash. Still not entirely sure vertical alignment works.
+    - Fixed MSWORD-FRIENDLY formatting
     - Added dependency on Listicles package
 
 1.0.0 2022-11-06T00:00:00-05:00
