@@ -166,8 +166,6 @@ multi method align( --> Hash ) {
 multi method align( $val --> Nil ) {
     my %align;
     if !$val.defined {
-        note("\nXXX alignment \$val.defined: " ~ $val.defined.raku);
-        note("\nXXX alignment \%align: " ~ %align.raku);
         $!align = %align;
     }
     else {
@@ -182,9 +180,7 @@ multi method align( $val --> Nil ) {
         elsif $val ~~ Hash {
             for $val.pairs -> $field-to-format {
                 validate-align($field-to-format, @!field-names);
-                if $field-to-format.key ∈ @!field-names {
-                    %align{ $field-to-format.key } = $field-to-format.value
-                }
+                %align{ $field-to-format.key } = $field-to-format.value
             }
 
             # Either $val was empty or none of its fields were in the field names.
@@ -218,7 +214,7 @@ multi method valign( $val --> Nil ) {
     }
     else {
         if $val ~~ Str {
-            validate-align $val;
+            validate-valign $val;
             for @!field-names -> $field {
                 %valign{ $field } = $val;
             }
@@ -227,10 +223,8 @@ multi method valign( $val --> Nil ) {
         }
         elsif $val ~~ Hash {
             for $val.pairs -> $field-to-format {
-                if $field-to-format.key ∈ @!field-names {
-                    validate-valign $field-to-format.value;
-                    %valign{ $field-to-format.key } = $field-to-format.value
-                }
+                validate-valign($field-to-format, @!field-names);
+                %valign{ $field-to-format.key } = $field-to-format.value
             }
 
             # Either $val was empty or none of its fields were in the field names.

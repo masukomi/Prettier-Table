@@ -64,7 +64,7 @@ where validate-format($_) || die 'Format must be a string or a hash of field-to-
 
 multi sub validate-align($val){
     die "Alignment must be a string." unless $val ~~ Str;
-    die "Value ($_) must be a single character." unless $val.chars == 1;
+    die "Alignment Value ($_) must be a single character." unless $val.chars == 1;
     die "Alignment ($_) is invalid. Use l, c, or r." unless $val ~~ Align;
 }
 multi sub validate-align( Pair $align-pair, @field-names ) is export {
@@ -72,10 +72,15 @@ multi sub validate-align( Pair $align-pair, @field-names ) is export {
     die "Alignment column \"" ~ $align-pair.key ~ "\" is not a known column." unless  @field-names.grep($align-pair.key);
 }
 
-sub validate-valign( $val ) is export {
-    die "Alignment must be a string." unless $val ~~ Str;
-    die "Value ($_) must be a single character." unless $val.chars == 1;
-    die "Alignment ($_) is invalid. Use t, m, or b." unless $val ~~ VAlign;
+multi sub validate-valign( $val ) is export {
+    die "Vertical Alignment must be a string." unless $val ~~ Str;
+    die "Vertical Alignment Value ($_) must be a single character." unless $val.chars == 1;
+    die "Vertical Alignment ($_) is invalid. Use t, m, or b." unless $val ~~ VAlign;
+}
+multi sub validate-valign(Pair $valign-pair, @field-names){
+    validate-valign($valign-pair.value);
+    die "Vertical Alignment column \"" ~ $valign-pair.key ~ "\" is not a known column." unless  @field-names.grep($valign-pair.key);
+
 }
 
 
