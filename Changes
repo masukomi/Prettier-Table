@@ -1,11 +1,20 @@
 Revision history for Pretty-Table
 
-{{$NEXT}}
+1.1.0 2022-11-08T00:00:00-05:00
+    - Added markdown support
+      .set-style(MARKDOWN)
+    - Added ability specify styles with strings
+      .set-style('MSWORDF-FRIENDLY')
+    - Added helpful messages when you attempt to set alignment
+      (horizontal and vertical) on column names that don't match anything.
+    - Fixed vertical alignment bug
+      vertical alignment settings were assigned to horizontal
+      alignment hash. Still not entirely sure vertical alignment works.
 
 1.0.0 2022-11-06T00:00:00-05:00
     - Reworked to use ASCII Box Drawing Characters for smooth lines
-	- Remove slice support
-	  - commented out pending a fix to a rakudo bug
+    - Remove slice support
+    - commented out pending a fix to a rakudo bug
 
 0.0.2  2020-02-07T20:50:33-05:00
     - Add missing tests
