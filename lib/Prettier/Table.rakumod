@@ -65,6 +65,7 @@ has %!min-width;
 has %!max-width;
 has $!hrule;
 has $!format = False;
+has $!markdown = False;
 
 submethod TWEAK {
     self.int-format($!int-format);
@@ -100,6 +101,8 @@ method gist( --> Str ) {
 
 #| modifies border characters to produce markdown output
 method markdown( --> Str ){
+    $!markdown = True;
+
     # NOTE: alignment is handled via the heading line.
     # colons indicate alignment
     #
@@ -163,6 +166,8 @@ multi method align( --> Hash ) {
 multi method align( $val --> Nil ) {
     my %align;
     if !$val.defined {
+        note("\nXXX alignment \$val.defined: " ~ $val.defined.raku);
+        note("\nXXX alignment \%align: " ~ %align.raku);
         $!align = %align;
     }
     else {
@@ -176,8 +181,8 @@ multi method align( $val --> Nil ) {
         }
         elsif $val ~~ Hash {
             for $val.pairs -> $field-to-format {
+                validate-align($field-to-format, @!field-names);
                 if $field-to-format.key ∈ @!field-names {
-                    validate-align $field-to-format.value;
                     %align{ $field-to-format.key } = $field-to-format.value
                 }
             }
