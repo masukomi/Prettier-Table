@@ -764,13 +764,16 @@ method !set-default-style( --> Nil ) {
 }
 
 method !set-msword-style( --> Nil ) {
-    $!header = True;
-    $!border = True;
-    $!hrules = NONE;
-    $!padding-width = 1;
-    $!left-padding-width = 1;
-    $!right-padding-width = 1;
-    $!vertical-char = "|";
+    $!header                = True;
+    $!border                = True;
+    $!hrules                = NONE;
+    $!padding-width         = 1;
+    $!left-padding-width    = 1;
+    $!right-padding-width   = 1;
+    $!vertical-char         = '|';
+    $!top-left-corner-char  = '+';
+    $!top-right-corner-char = '+';
+    $!horizontal-char       = '-';
 }
 #| modifies border characters to produce markdown output
 method !set-markdown-style( --> Nil ){
@@ -1538,6 +1541,9 @@ method !format-rows( @rows --> List ) {
 
 C<Prettier::Table>, a simple Raku module to make it quick and easy to represent
 tabular data in visually appealing ASCII tables.
+
+By default it will generate tables using ASCII Box Drawing characters, but
+you can also generate GFM Markdown tables, and
 
 
 This is a fork of L<Luis F Uceta's Prettier::Table|https://gitlab.com/uzluisf/raku-pretty-table> which is itself a port of
