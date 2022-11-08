@@ -4,22 +4,25 @@
 
 use Prettier::Table;
 
+sub add-australian-city-data($table) {
+    given $table {
+        .add-row: ["Adelaide",  1295,  1158259,  600.5 ];
+        .add-row: ["Brisbane",  5905,  1857594,  1146.4];
+        .add-row: ["Darwin",    112,   120900,   1714.7];
+        .add-row: ["Hobart",    1357,  205556,   619.5 ];
+        .add-row: ["Sydney",    2058,  4336374,  1214.8];
+        .add-row: ["Melbourne", 1566,  3806092,  646.9 ];
+        .add-row: ["Perth",     5386,  1554769,  869.4 ];
+    }
+}
+
 my $table = Prettier::Table.new:
     title => "Australian Cities",
     field-names => ["City name", "Area", "Population", "Annual Rainfall"],
     sort-by => 'Area',
     align => %('City name' => 'l'),
 ;
-
-given $table {
-    .add-row: ["Adelaide",  1295,  1158259,  600.5 ];
-    .add-row: ["Brisbane",  5905,  1857594,  1146.4];
-    .add-row: ["Darwin",    112,   120900,   1714.7];
-    .add-row: ["Hobart",    1357,  205556,   619.5 ];
-    .add-row: ["Sydney",    2058,  4336374,  1214.8];
-    .add-row: ["Melbourne", 1566,  3806092,  646.9 ];
-    .add-row: ["Perth",     5386,  1554769,  869.4 ];
-}
+add-australian-city-data($table);
 
 say $table;
 
@@ -38,4 +41,31 @@ $table.align(%(:Planet<l>));
 $table.float-format(%('Orbital period (days)' => '-10.3f', 'Surface gravity (m/s)' => '-5.3f'));
 $table.sort-by('Position');
 
-say $table
+say $table;
+
+say "\n\nMarkdown formatted, with aligned columns via .set-style('MARKDOWN')\nNote the lack of Title too.\n\n";
+
+$table = Prettier::Table.new:
+    title => "Australian Cities",
+    field-names => ["City name", "Area", "Population", "Annual Rainfall"],
+    align => %('City name' => 'l', 'Annual Rainfall'=>'r'),
+    sort-by => 'Annual Rainfall',
+;
+$table.set-style('MARKDOWN');
+add-australian-city-data($table);
+
+
+say $table;
+
+say "\n\nMS Word Friendly formatted, with aligned columns via .set-style('MSWORD-FRIENDLY')\n\n";
+
+$table = Prettier::Table.new:
+    title => "Australian Cities",
+    field-names => ["City name", "Area", "Population", "Annual Rainfall"],
+    sort-by => 'Area',
+    align => %('City name' => 'l'),
+;
+$table.set-style('MSWORD-FRIENDLY');
+add-australian-city-data($table);
+
+say $table;
