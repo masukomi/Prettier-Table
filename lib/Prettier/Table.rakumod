@@ -98,6 +98,21 @@ method gist( --> Str ) {
     self.get-string
 }
 
+#| modifies border characters to produce markdown output
+method markdown( --> Str ){
+    # NOTE: alignment is handled via the heading line.
+    # colons indicate alignment
+    #
+    # |----| => no alignment specified
+    # |:---| => left aligned
+    # |---:| => right aligned
+    # |:--:| => center aligned
+    #
+    # NOTE: there is no colspan functionality
+    # so title will look like crap
+    # TODO: Make title's optional
+}
+
 #| Return a list of field names.
 multi method field-names( --> Array ) {
     @!field-names
