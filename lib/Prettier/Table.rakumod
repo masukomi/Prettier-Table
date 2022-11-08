@@ -232,7 +232,7 @@ multi method valign( $val --> Nil ) {
                 %valign{$_} = 't' for @!field-names;
             }
 
-            $!align = %valign;
+            $!valign = %valign;
         }
         else {
             note
