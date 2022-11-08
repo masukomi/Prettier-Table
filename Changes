@@ -10,6 +10,7 @@ Revision history for Pretty-Table
     - Fixed vertical alignment bug
       vertical alignment settings were assigned to horizontal
       alignment hash. Still not entirely sure vertical alignment works.
+    - Added dependency on Listicles package
 
 1.0.0 2022-11-06T00:00:00-05:00
     - Reworked to use ASCII Box Drawing Characters for smooth lines
