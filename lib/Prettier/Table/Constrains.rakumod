@@ -12,7 +12,7 @@ unit module Prettier::Table::Constrains;
 #   NONE, nothing has rules
 enum hrules-enum is export <FRAME ALL NONE HEADER>;
 
-enum TableStyle is export (:10DEFAULT, :11MSWORD-FRIENDLY, :12PLAIN-COLUMNS, :20RANDOM);
+enum TableStyle is export (:10DEFAULT, :11MSWORD-FRIENDLY, :12PLAIN-COLUMNS, :20RANDOM, :21MARKDOWN);
 
 #
 # Subsets
