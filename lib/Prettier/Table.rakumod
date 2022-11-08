@@ -994,9 +994,9 @@ method !prepare-lines( *%_ ) {
     # Add header or top of border
 
     if $!header and $!title.defined {
-        @lines.append(self!stringify-header(row=>'header-middle').split("\n"));
+        @lines.append(self!stringify-header(row=>'header-middle').split(/\r\n|\n/));
     } elsif $!header {
-        @lines.append(self!stringify-header(row=>'header-top').split("\n"));
+        @lines.append(self!stringify-header(row=>'header-top').split(/\r\n|\n/));
     } elsif $!border and $!hrules ∈ (ALL, FRAME) {
         @lines.push(self!stringify-hrule(row => 'top'));
     }
@@ -1174,7 +1174,7 @@ method !stringify-header(Str :$row = 'header-top') {
 
 method !stringify-row( @row, Str :$row-position = 'middle' --> Str ) {
     for 0..^@row.elems Z @!field-names Z @row Z @!widths -> ($index, $field, $value, $width) {
-        my @lines = $value.split("\n");
+        my @lines = $value.split(/\r\n|\n/);
         my @new-lines;
         for @lines <-> $line {
             if self!str-block-width($line) > $width {
@@ -1204,7 +1204,7 @@ method !stringify-row( @row, Str :$row-position = 'middle' --> Str ) {
 
     for @!field-names.flat Z @row.flat Z @!widths.flat -> ($field, $value, $width) {
         my $valign = $!valign{$field};
-        my @lines = $value.split("\n");
+        my @lines = $value.split(/\r\n|\n/);
         my $height-diff = $row-height - @lines.elems;
         if $height-diff {
             given $valign {
@@ -1273,7 +1273,7 @@ method !justify( Str $text, Int $width, Str $align --> Str ) {
 }
 
 method !get-size( $text --> Hash ) {
-    my @lines = $text.split("\n");
+    my @lines = $text.split(/\r\n|\n/);
     my $height = @lines.elems;
     my $width = @lines.map({ self!str-block-width($^line) }).max;
     return %( :$width, :$height );
