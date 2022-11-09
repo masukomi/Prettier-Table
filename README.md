@@ -35,7 +35,7 @@ Synopsis
 
 Output:
 
-<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/australian_cities.png?raw=true" />
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/images/images/australian_cities.png?raw=true" />
 
 (GitHub displays the raw text incorrectly)
 
@@ -79,7 +79,7 @@ Output:
 
 Output:
 
-<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/main/images/planets_of_the_solar_system.png?raw=true" />
+<img alt="actual rendering" src="https://github.com/masukomi/Prettier-Table/blob/images/images/planets_of_the_solar_system.png?raw=true" />
 
 (GitHub displays the raw text incorrectly)
 
