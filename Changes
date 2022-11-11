@@ -1,6 +1,9 @@
 Revision history for Prettier::Table
 
 
+1.1.2 2022-11-11T00:00:00-05:00
+    - Corrected bug in Improved handling of Nil cells
+
 1.1.1 2022-11-11T00:00:00-05:00
     - Improved handling of Nil cells
 

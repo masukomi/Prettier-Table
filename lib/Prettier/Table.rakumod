@@ -2,7 +2,7 @@ use Text::Wrap;
 use Prettier::Table::Constrains;
 
 
-unit class Prettier::Table:ver<1.1.1>:auth<masukomi (masukomi@masukomi.org)>;
+unit class Prettier::Table:ver<1.1.2>:auth<masukomi (masukomi@masukomi.org)>;
 #
 # Public attributes
 #
@@ -1220,8 +1220,8 @@ method !stringify-header(Str :$row = 'header-top') {
 
 method !stringify-row( @row, Str :$row-position = 'middle' --> Str ) {
     for 0..^@row.elems Z @!field-names Z @row Z @!widths -> ($index, $field, $value, $width) {
-        $value = '' if Nil ~~ $value;
-        my @lines = $value.split(/\r\n|\n/);
+        my $guaranteed_value = Nil ~~ $value ?? '' !! $value;
+        my @lines = $guaranteed_value.split(/\r\n|\n/);
         my @new-lines;
         for @lines <-> $line {
             if self!str-block-width($line) > $width {
@@ -1251,7 +1251,8 @@ method !stringify-row( @row, Str :$row-position = 'middle' --> Str ) {
 
     for @!field-names.flat Z @row.flat Z @!widths.flat -> ($field, $value, $width) {
         my $valign = $!valign{$field};
-        my @lines = $value.split(/\r\n|\n/);
+        my $guaranteed_value = Nil ~~ $value ?? '' !! $value;
+        my @lines = $guaranteed_value.split(/\r\n|\n/);
         my $height-diff = $row-height - @lines.elems;
         if $height-diff {
             given $valign {
