@@ -2,7 +2,7 @@ use Text::Wrap;
 use Prettier::Table::Constrains;
 
 
-unit class Prettier::Table:ver<1.1.2>:auth<masukomi (masukomi@masukomi.org)>;
+unit class Prettier::Table:ver<1.1.3>:auth<masukomi (masukomi@masukomi.org)>;
 #
 # Public attributes
 #
